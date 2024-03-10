@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {signal} from '@angular/core';
 
 @Component({
   selector: 'app-labs',
@@ -12,12 +13,12 @@ import { CommonModule } from '@angular/common';
 export class LabsComponent {
   title = 'Mi primer APP en Angular';
   h2 = 'Mi primer línea de la app';
-  tasks = [
+  tasks = signal([
     'Instalar el angular CLI',
     'Crear proyectos',
     'Crear componentes'
-  ];
-  name ='Camilo';
+  ]);
+  name = signal('Camilo');
   age = 35;
   img = 'https://www.w3schools.com/howto/img_avatar.png';
   disable = 'true'
@@ -31,6 +32,12 @@ export class LabsComponent {
     alert('Hola')
   }
   changeHandler (event: Event){
-    console.log(event)
+    const input = event.target as HTMLInputElement;
+    const newValue = (input.value)
+    this.name.set(newValue)
+  }
+  keydownHandler (event: KeyboardEvent){
+    const input = event.target as HTMLInputElement;
+    console.log(input.value)
   }
 }
